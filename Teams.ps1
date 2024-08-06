@@ -57,7 +57,7 @@ param (
           }
           catch {
               $errorMessage = $_.Exception.Message
-              Write-Error "Error durint function New-LogMessage : $errorMessage"
+              Write-Error "Error during function New-LogMessage : $errorMessage"
           }
         }
       
@@ -140,7 +140,7 @@ param (
           catch {
               $errorMessage = $_.Exception.Message
               New-LogMessage -message "Erreur : $errorMessage" -level "ERROR"
-              throw "Erreur : Impossible de télécharger le logiciel $ErrorMessage"
+              throw "Error: Unable to download the software $ErrorMessage"
           }
         }
 
@@ -152,7 +152,7 @@ param (
           catch {
               $errorMessage = $_.Exception.Message
               New-LogMessage -message "Erreur : $errorMessage" -level "ERROR"
-              throw "Erreur : Impossible de télécharger le logiciel $ErrorMessage"
+              throw "Error: Unable to download the software $ErrorMessage"
           }
         }
       
@@ -164,7 +164,7 @@ param (
           catch {
               $errorMessage = $_.Exception.Message
               New-LogMessage -message "Erreur : $errorMessage" -level "ERROR"
-              throw "Erreur : Le logiciel ne c'est pas désapprovisionné $ErrorMessage"
+              throw "Error: Unable to download the software $ErrorMessage"
             }
         }
       function Set-Install {
@@ -175,7 +175,7 @@ param (
           catch {
               $errorMessage = $_.Exception.Message
               New-LogMessage -message "Erreur : $errorMessage" -level "ERROR"
-              throw "Erreur : Impossible d'installer le logiciel $ErrorMessage"
+              throw "Error: Unable to download the software $ErrorMessage"
           }
         }
       
@@ -184,16 +184,16 @@ param (
           try {
               $Teams = Get-AppPackage -AllUsers -Name MSTeams | Select-Object Name
               if ($Teams -match "MSTeams") {
-                New-LogMessage -message "Teams c'est correctement installé" -level "INFO"
+                New-LogMessage -message "Teams installed correctly" -level "INFO"
               }
               else {
-                New-LogMessage -message "Teams ne c'est pas correctement installé" -level "ERROR"
+                New-LogMessage -message "Teams did not install correctly" -level "ERROR"
               }
           }
           catch {
               $errorMessage = $_.Exception.Message
               New-LogMessage -message "Erreur : $errorMessage" -level "ERROR"
-              throw "Erreur : Le logiciel n'est pas installé $ErrorMessage"
+              throw "Error: The software is not installed $ErrorMessage"
           }
         }
     }
@@ -205,11 +205,11 @@ param (
         # Start the script again with PWSH/core powershell
         Switch-ToPowershellCore -InstallFolderPwsh7 "$env:SystemDrive\Program Files\PowerShell\7" -DownloadFolder "$env:SystemDrive/sources"
       
-        New-LogMessage -message "###Début du script###" -level "INFO"
-        New-LogMessage -message "Le chemin du fichier de journal est : $logFolderPath" -level "WARN"
+        New-LogMessage -message "###Start of the script###" -level "INFO"
+        New-LogMessage -message "The log file path is : $logFolderPath" -level "WARN"
         Test-IsElevated -Test_admin $is_admin
     
-        New-LogMessage -message "Téléchargement et Installation" -level "INFO"
+        New-LogMessage -message "Download and Installation" -level "INFO"
         # DownloadBootstrapper teams
         DL-boostrapper
         
